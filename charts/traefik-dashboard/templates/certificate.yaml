@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-dashboard
+  labels:
+    app.kubernetes.io/name: traefik-dashboard
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  secretName: {{ .Values.tlsSecretName | quote }}
+  dnsNames:
+    - {{ required "domain is required" .Values.domain | quote }}
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+    group: cert-manager.io

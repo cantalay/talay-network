@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+  labels:
+    app.kubernetes.io/managed-by: Helm
+spec:
+  acme:
+    email: {{ required "email is required" .Values.email | quote }}
+    server: {{ required "server is required" .Values.server | quote }}
+    privateKeySecretRef:
+      name: {{ .Values.privateKeySecretName | quote }}
+    solvers:
+      - http01:
+          ingress:
+            ingressClassName: {{ .Values.ingressClass | quote }}

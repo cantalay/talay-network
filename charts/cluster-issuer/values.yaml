@@ -1,0 +1,4 @@
+email: platform@example.com
+server: https://acme-staging-v02.api.letsencrypt.org/directory
+privateKeySecretName: letsencrypt-account-key
+ingressClass: traefik

@@ -1,0 +1,4 @@
+domain: traefik.example.com
+dnsTarget: null
+tlsSecretName: traefik-dashboard-tls
+allowedCIDRs: []

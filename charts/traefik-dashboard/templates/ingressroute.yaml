@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  labels:
+    app.kubernetes.io/name: traefik-dashboard
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- with .Values.dnsTarget }}
+  annotations:
+    external-dns.kubernetes.io/target: {{ . | quote }}
+  {{- end }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`{{ required "domain is required" .Values.domain }}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      {{- if .Values.allowedCIDRs }}
+      middlewares:
+        - name: traefik-dashboard-allowlist
+      {{- end }}
+      services:
+        - kind: TraefikService
+          name: api@internal
+  tls:
+    secretName: {{ .Values.tlsSecretName | quote }}
