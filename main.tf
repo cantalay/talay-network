@@ -22,7 +22,8 @@ resource "helm_release" "traefik" {
       insecure  = false
     }
     deployment = {
-      replicas = 1
+      replicas  = 1
+      podLabels = local.common_labels
     }
     priorityClassName = "talay-platform-critical"
     ingressClass = {
@@ -80,7 +81,6 @@ resource "helm_release" "traefik" {
         }
       }
     }
-    podLabels = local.common_labels
   })]
 }
 
