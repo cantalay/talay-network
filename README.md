@@ -8,6 +8,8 @@ Cluster girişini ve DNS/TLS otomasyonunu yönetir:
 - İsteğe bağlı ExternalDNS (`1.21.1`)
 - Feature flag ile açılan Traefik Dashboard (`/dashboard/`)
 
+Root stack yalnızca `modules/traefik`, `modules/cert-manager` ve `modules/external-dns` bileşenlerini birleştirir. Bileşen kaynakları, değişkenleri ve varsa yerel chartları kendi modül dizininde tutulur.
+
 ExternalDNS varsayılan olarak kapalıdır; DNS sağlayıcısının kimlik bilgileri Terraform'a verilmemeli, önceden Vault/ExternalSecret ile oluşturulmuş bir Secret veya workload identity kullanılmalıdır. `external_dns_values` sağlayıcıya özel chart değerlerini taşır.
 
 ## Geçici Traefik Dashboard

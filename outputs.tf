@@ -1,12 +1,12 @@
 output "ingress_class" {
-  value = "traefik"
+  value = module.traefik.ingress_class
 }
 
 output "cluster_issuer" {
-  value = "letsencrypt"
+  value = module.cert_manager.cluster_issuer
 }
 
 output "traefik_dashboard_url" {
   description = "Dashboard etkinse erişim adresi."
-  value       = var.traefik_dashboard_enabled ? "https://${var.traefik_dashboard_domain}/dashboard/" : null
+  value       = module.traefik.dashboard_url
 }
