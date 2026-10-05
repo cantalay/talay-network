@@ -5,7 +5,7 @@ domain_filters       = ["cantalay.com"]
 # Geçici operasyon görünürlüğü. İşiniz bitince false yapın.
 traefik_dashboard_enabled       = true
 traefik_dashboard_domain        = "traefik.cantalay.com"
-traefik_dashboard_dns_target    = "45.87.80.10"
+traefik_dashboard_dns_target    = "152.53.66.101"
 traefik_dashboard_allowed_cidrs = []
 
 # Sağlayıcıya özel secretRef/envFrom değerlerini burada, secret değerlerini ise Vault'ta tutun.
