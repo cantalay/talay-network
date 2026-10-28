@@ -14,6 +14,8 @@ module "traefik" {
   dashboard_dns_target    = var.traefik_dashboard_dns_target
   dashboard_allowed_cidrs = var.traefik_dashboard_allowed_cidrs
   dashboard_chart_path    = "${path.root}/charts/traefik-dashboard"
+
+  metrics_guard_chart_path = "${path.root}/charts/metrics-guard"
 }
 
 module "external_dns" {

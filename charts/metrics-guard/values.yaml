@@ -1,0 +1,15 @@
+# Prometheus pod'ları doğrudan kazır (ServiceMonitor -> pod IP); bu yollar dışarıdan hiç gerekmez.
+# Kural host'suz: bütün host'larda websecure üzerinden gelen istekleri yakalar, uygulama
+# Ingress'lerinden (öncelik = kural uzunluğu) önce eşleşmesi için öncelik yüksek.
+priority: 100000
+# Yalnız loopback'e izin: dışarıdan gelen her istek 403 alır.
+allowedCIDRs:
+  - 127.0.0.1/32
+pathRegexps:
+  # Prometheus/OpenMetrics: Grafana, Go/.NET/Node uygulamaları
+  - '^/metrics/?$'
+  # Vault telemetry (listener'da unauthenticated_metrics_access açık)
+  - '^/v1/sys/metrics(/.*)?$'
+  # Spring Boot Actuator: dizin + health/info dışındaki uçlar, /api bağlam yolu dahil
+  - '^/(api/)?actuator/?$'
+  - '^/(api/)?actuator/(prometheus|metrics|heapdump|threaddump|env|configprops|beans|mappings|loggers|caches|conditions|scheduledtasks|sessions|shutdown|startup|logfile|httpexchanges|auditevents|flyway|liquibase|quartz|sbom|integrationgraph)(/.*)?$'

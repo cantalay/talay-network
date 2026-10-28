@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: metrics-guard
+  labels:
+    app.kubernetes.io/name: metrics-guard
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: {{ range $i, $re := required "pathRegexps is required" .Values.pathRegexps }}{{ if $i }} || {{ end }}PathRegexp(`{{ $re }}`){{ end }}
+      priority: {{ .Values.priority }}
+      middlewares:
+        - name: metrics-guard-deny
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  # Host'suz kural: sertifika SNI ile varsayılan TLS deposundan seçilir (her host kendi sertifikasını alır).
+  tls: {}

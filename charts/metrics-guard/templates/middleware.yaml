@@ -1,0 +1,11 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: metrics-guard-deny
+  labels:
+    app.kubernetes.io/name: metrics-guard
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  ipAllowList:
+    sourceRange:
+      {{- toYaml .Values.allowedCIDRs | nindent 6 }}

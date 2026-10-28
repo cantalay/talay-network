@@ -3,3 +3,4 @@ variable "dashboard_domain" { type = string }
 variable "dashboard_dns_target" { type = string }
 variable "dashboard_allowed_cidrs" { type = list(string) }
 variable "dashboard_chart_path" { type = string }
+variable "metrics_guard_chart_path" { type = string }
