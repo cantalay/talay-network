@@ -81,3 +81,17 @@ resource "helm_release" "traefik_dashboard" {
 
   depends_on = [helm_release.traefik]
 }
+
+# Bütün genel host'larda metrik ve hassas actuator yollarını kenarda kapatır (2026-10-28: notify, finance,
+# Grafana ve Vault metrikleri dışarıya açıktı). Kazıma pod'lara doğrudan gider, etkilenmez.
+resource "helm_release" "metrics_guard" {
+  name      = "metrics-guard"
+  namespace = "ingress-system"
+  chart     = var.metrics_guard_chart_path
+
+  atomic  = true
+  wait    = true
+  timeout = 300
+
+  depends_on = [helm_release.traefik]
+}

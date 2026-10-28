@@ -1,0 +1,6 @@
+apiVersion: v2
+name: metrics-guard
+description: Talay edge guard - blocks metrics and sensitive actuator paths on every public host
+type: application
+version: 0.1.0
+appVersion: "1.0"
